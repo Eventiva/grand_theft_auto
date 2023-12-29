@@ -1,0 +1,19 @@
+name: Test
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install and configure git-subrepo
+      run: |
+        git clone https://github.com/ingydotnet/git-subrepo /tmp/git-subrepo
+        source /tmp/git-subrepo/.rc
+        echo "/tmp/git-subrepo/lib" >> $GITHUB_PATH
+
+    - name: Run git subrepo push --all
+      run: git subrepo push --all
