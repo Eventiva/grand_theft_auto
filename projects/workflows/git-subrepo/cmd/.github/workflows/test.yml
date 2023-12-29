@@ -17,7 +17,11 @@ jobs:
     - uses: actions/checkout@v2
     - if: startsWith(matrix.os, 'macos')
       run: brew install bash
-    - run:
+    - run: |
         git config --global user.email "you@example.com";
         git config --global user.name "Your Name";
+    - run: |
+        git clone https://github.com/ingydotnet/git-subrepo /usr/local/lib/git-subrepo
+        echo 'source /usr/local/lib/git-subrepo/.rc' >> ~/.bashrc
+        source ~/.bashrc
     - run: make test
