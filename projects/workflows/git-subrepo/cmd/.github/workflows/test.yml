@@ -20,4 +20,10 @@ jobs:
     - run:
         git config --global user.email "you@example.com";
         git config --global user.name "Your Name";
+    - name: Install git-subrepo
+      run: |
+        git clone https://github.com/ingydotnet/git-subrepo /tmp/git-subrepo
+        source /tmp/git-subrepo/.rc
+    - name: Verify git-subrepo installation
+      run: git subrepo status
     - run: make test
