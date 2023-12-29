@@ -48,6 +48,11 @@ jobs:
   run: # make sure the action works on a clean machine without building
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: actions/checkout@v3
         with:
           fetch-depth: 250
@@ -58,9 +63,9 @@ jobs:
           days: 7
           channel: integrations-test
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-          SLACK_SIGNING_SECRET: ${{ secrets.SLACK_SIGNING_SECRET }}
+          OPENAI_API_KEY: ${{ secrets.GITHUB_OPENAI_API_KEY }}
+          SLACK_BOT_TOKEN: ${{ secrets.GITHUB_SLACK_BOT_TOKEN }}
+          SLACK_SIGNING_SECRET: ${{ secrets.GITHUB_SLACK_SIGNING_SECRET }}
           GITHUB_REPO_NAME: ${{ github.repository }}
 
       - uses: ./
