@@ -12,11 +12,16 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
+    env:
+      GIT_SUBREPO_ROOT: /tmp/git-subrepo
 
     steps:
     - uses: actions/checkout@v2
     - if: startsWith(matrix.os, 'macos')
       run: brew install bash
+    - run: |
+        git clone https://github.com/ingydotnet/git-subrepo /tmp/git-subrepo
+        source /tmp/git-subrepo/.rc
     - run:
         git config --global user.email "you@example.com";
         git config --global user.name "Your Name";
